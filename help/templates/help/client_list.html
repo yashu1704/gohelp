@@ -1,0 +1,32 @@
+{% extends 'help/base.html' %}
+
+{% block title %}Client List{% endblock %}
+
+{% block content %}
+<h2>Clients</h2>
+
+<!-- Form for adding a new client -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render form fields -->
+    <button type="submit">Add Client</button>
+</form>
+
+<!-- Display form errors if there are any -->
+{% if form.errors %}
+    <ul>
+    {% for field in form %}
+        {% for error in field.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- List of clients -->
+<ul>
+    {% for client in clients %}
+        <li>{{ client.name }} - {{ client.location }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

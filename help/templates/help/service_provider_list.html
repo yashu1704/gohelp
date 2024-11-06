@@ -1,0 +1,32 @@
+{% extends 'help/base.html' %}
+
+{% block title %}Service Provider List{% endblock %}
+
+{% block content %}
+<h2>Service Provider List</h2>
+
+<!-- Form for adding a new service provider -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render form fields -->
+    <button type="submit">Add Service Provider</button>
+</form>
+
+<!-- Display form errors if there are any -->
+{% if form.errors %}
+    <ul>
+    {% for field in form %}
+        {% for error in field.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- List of service providers -->
+<ul>
+    {% for provider in service_providers %}
+        <li>{{ provider.name }} - {{ provider.skills }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'help/base.html' %}
+
+{% block title %}Service History{% endblock %}
+
+{% block content %}
+<h2>Service History</h2>
+
+<!-- Form for adding a new service history record -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render form fields -->
+    <button type="submit">Add Service History</button>
+</form>
+
+<!-- Display form errors if there are any -->
+{% if form.errors %}
+    <ul>
+    {% for field in form %}
+        {% for error in field.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- List of service history records -->
+<ul>
+    {% for record in service_history %}
+        <li>{{ record.service }} on {{ record.date }} - {{ record.amount }} - {{ record.rating }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
